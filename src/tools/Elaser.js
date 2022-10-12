@@ -6,6 +6,7 @@ class Elaser extends  Brush {
         super(canvas);
     }
 
+
     draw(x,y) {
         this.ctx.lineTo(x,y);
         this.ctx.strokeStyle = 'white';

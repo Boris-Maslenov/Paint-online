@@ -5,7 +5,7 @@ class Tool {
         this.deleteEvents();
     }
 
-    deleteEvents(){
+    deleteEvents = () => {
         this.canvas.onmousemove = null;
         this.canvas.onmousedown = null;
         this.canvas.onmouseup = null;

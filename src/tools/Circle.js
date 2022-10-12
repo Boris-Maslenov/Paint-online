@@ -1,8 +1,7 @@
-import Tool from "./Tool";
+import Tool from './Tool';
 
-class Rect extends Tool{
-
-    constructor(canvas) {
+class Circle extends Tool {
+    constructor(canvas){
         super(canvas);
         this.listen();
     }
@@ -16,40 +15,40 @@ class Rect extends Tool{
     draw(x, y, w, h) {
         const img = document.createElement('img');
         img.src = this.saved;
+        console.log('sds');
         img.onload = () => {
             this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height); // полная очистка канваса
             this.ctx.drawImage(img, 0, 0, this.canvas.width, this.canvas.height); // вернем старые рисунки на канвас
             this.ctx.beginPath();
-            this.ctx.rect(x, y, w, h);
-            this.ctx.fillStyle = 'black';
-            this.ctx.fill();
-            this.ctx.strokeStyle = 'black';
+            this.ctx.arc(x, y, w, 0, 2 * Math.PI);
             this.ctx.stroke();
         }
 
     }
 
     mouseUpHandler = (e) => {
+        console.log('mouseUpHandler');
         this.mouseDown = false;
     }
 
     mouseDownHandler = (e) => {
+        console.log('mouseDownHandler');
         this.mouseDown = true;
         this.ctx.beginPath();
-        this.startX = e.pageX - e.target.offsetLeft;
-        this.startY = e.pageY - e.target.offsetTop;
+        this.startX = e.pageX - e.target.offsetLeft; //начальное положение по горизонту
+        this.startY = e.pageY - e.target.offsetTop; //начальное положение по вертикали
         this.saved = this.canvas.toDataURL(); // снимок предыдущего рисования
-        //console.log(this.saved);
     }
     mouseMoveHandler = (e) => {
         if(this.mouseDown){
-            let currentX = e.pageX - e.target.offsetLeft;
-            let currentY = e.pageY - e.target.offsetTop;
-            let width = currentX - this.startX;
-            let height = currentY - this.startY;
+            console.log('mouseMoveHandler');
+            let currentX = e.pageX - e.target.offsetLeft; // текущее положение по горизонту
+            let currentY = e.pageY - e.target.offsetTop; // текущее положение по вертикали
+            let width = currentX - this.startX;  // текущее положение - стартовое = ширина
+            let height = currentY - this.startY; // текущее положение - стартовое = высота
             this.draw(this.startX,  this.startY, width, height);
         }
     }
 }
 
-export default Rect;
+export default Circle;

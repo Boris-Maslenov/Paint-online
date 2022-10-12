@@ -1,6 +1,6 @@
 import { useEffect, useRef } from 'react';
 import { useDispatch } from 'react-redux';
-import { createCanvas, setTool } from '../../actions';
+import { createCanvas } from '../../actions';
 
 // import Brush from '../../tools/Brush';
 

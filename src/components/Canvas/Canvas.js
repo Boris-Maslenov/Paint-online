@@ -1,6 +1,9 @@
 import { useEffect, useRef } from 'react';
 import { useDispatch } from 'react-redux';
-import { createCanvas } from '../../actions';
+import { createCanvas, setTool } from '../../actions';
+
+// import Brush from '../../tools/Brush';
+
 import './Canvas.css';
 
 const Canvas = () => {
@@ -10,12 +13,13 @@ const Canvas = () => {
     useEffect( () => {
 
         dispatch( createCanvas(canvasRef.current) );
-    // eslint-disable-next-line
+        //dispatch( setTool( new Brush(canvasRef.current) ));
+        // eslint-disable-next-line
     }, [] );
 
     return (
 
-        <canvas ref={canvasRef}  width={500} height={500} className='canvas'></canvas>
+        <canvas ref={canvasRef}  width={700} height={500} className='canvas'></canvas>
 
     )
 }

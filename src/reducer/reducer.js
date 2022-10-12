@@ -1,5 +1,5 @@
 const initialState = {
-    tool: 'brush',
+    tool: null,
     canvas: null,
 
 }
@@ -11,6 +11,11 @@ const reducer = (state = initialState, action) => {
             ...state,
             canvas: action.payload
         }
+        case 'SET_TOOL' :
+            return {
+                ...state,
+                tool: action.payload
+            }
             default: return state
     }
 }

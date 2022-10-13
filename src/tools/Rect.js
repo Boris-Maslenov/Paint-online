@@ -21,9 +21,7 @@ class Rect extends Tool{
             this.ctx.drawImage(img, 0, 0, this.canvas.width, this.canvas.height); // вернем старые рисунки на канвас
             this.ctx.beginPath();
             this.ctx.rect(x, y, w, h);
-            this.ctx.fillStyle = 'black';
             this.ctx.fill();
-            this.ctx.strokeStyle = 'black';
             this.ctx.stroke();
         }
 

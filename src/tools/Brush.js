@@ -4,13 +4,12 @@ class Brush extends Tool{
 
     constructor(canvas) {
         super(canvas);
+        // this.ctx.strokeStyle = color;
+        // this.ctx.fillStyle = color;
         this.listen();
     }
 
     listen() {
-        // this.canvas.onmousemove = this.mouseMoveHandler.bind(this);
-        // this.canvas.onmousedown = this.mouseDownHandler.bind(this);
-        // this.canvas.onmouseup = this.mouseUpHandler.bind(this);
         this.canvas.onmousemove = this.mouseMoveHandler;
         this.canvas.onmousedown = this.mouseDownHandler;
         this.canvas.onmouseup = this.mouseUpHandler;
@@ -18,7 +17,8 @@ class Brush extends Tool{
 
     draw(x,y) {
         this.ctx.lineTo(x,y);
-        this.ctx.strokeStyle = 'black';
+        //this.ctx.strokeStyle = 'black';
+        console.log(this.ctx.strokeStyle, this.ctx.fillStyle);
         this.ctx.stroke();
     }
 

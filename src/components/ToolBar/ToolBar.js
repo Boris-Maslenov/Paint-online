@@ -1,6 +1,5 @@
-// import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { setTool } from '../../actions';
+import { setTool, setFillColor } from '../../actions';
 import Brush from '../../tools/Brush';
 import Rect from '../../tools/Rect';
 import Elaser from '../../tools/Elaser';
@@ -9,6 +8,7 @@ import Line from '../../tools/Line';
 import './toolbar.css';
 
 const ToolBar = () => {
+    
     const { canvas } = useSelector(state => state);
     const dispatch = useDispatch();
 
@@ -19,7 +19,7 @@ const ToolBar = () => {
             <button onClick={e => dispatch( setTool(new Circle(canvas)) )} className="toolbar__button toolbar__button_circle"></button>
             <button onClick={e => dispatch( setTool(new Elaser(canvas)) )} className="toolbar__button toolbar__button_elaser"></button>
             <button onClick={e => dispatch( setTool(new Line(canvas)) )} className="toolbar__button toolbar__button_line"></button>
-            <input type="color" className="toolbar__button toolbar__button_colors"/>
+            <input onChange={e => dispatch( setFillColor(e.target.value) )} type="color" className="toolbar__button toolbar__button_colors"/>
 
             <button className="toolbar__button toolbar__button_undo" style={{'marginLeft' : 'auto'}}></button>
             <button className="toolbar__button toolbar__button_redo"></button>

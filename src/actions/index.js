@@ -10,3 +10,17 @@ export const createCanvas = (ref) => {
         payload: ref
     }
 }
+
+export const setFillColor = (color) => {
+    return {
+        type: 'SET_COLOR',
+        payload: color
+    }
+}
+
+export const setWidth = (width) => {
+    return {
+        type: 'SET_WIDTH',
+        payload: width
+    }
+}

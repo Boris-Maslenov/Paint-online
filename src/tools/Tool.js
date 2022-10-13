@@ -5,6 +5,15 @@ class Tool {
         this.deleteEvents();
     }
 
+    set setFillColor(color){
+        this.ctx.fillStyle = color;
+        this.ctx.strokeStyle = color;
+    }
+
+    set setWidth(width){
+        this.ctx.lineWidth = width;
+    }
+
     deleteEvents = () => {
         this.canvas.onmousemove = null;
         this.canvas.onmousedown = null;

@@ -1,5 +1,5 @@
 import { useDispatch, useSelector } from 'react-redux';
-import { setTool, setFillColor } from '../../actions';
+import { setTool, setFillColor, pushToRedo, pushToUndo } from '../../actions';
 import Brush from '../../tools/Brush';
 import Rect from '../../tools/Rect';
 import Elaser from '../../tools/Elaser';
@@ -8,19 +8,19 @@ import Line from '../../tools/Line';
 import './toolbar.css';
 
 const ToolBar = () => {
-    
-    const { canvas, undoList } = useSelector(state => state);
+    const { canvas, undoList, redoList } = useSelector(state => state);
     const dispatch = useDispatch();
+    console.log('undo:', undoList, 'redo:', redoList);
+
 
     const onUndoHandler = (e) => {
         e.preventDefault();
         let ctx = canvas.getContext('2d');
         if(undoList.length > 0){
             let lastStep = undoList.pop();
-            console.log(lastStep);
+            dispatch( pushToRedo(canvas.toDataURL()) );
             let img = new Image();
             img.src = lastStep;
-            console.log(img);
             img.onload = () => {
                 ctx.clearRect(0,0,canvas.width, canvas.height);
                 ctx.drawImage(img,0,0,canvas.width, canvas.height);
@@ -31,7 +31,18 @@ const ToolBar = () => {
     }
     const onRedoHandler = (e) => {
         e.preventDefault();
-        console.log('onRedoHandler');
+        let ctx = canvas.getContext('2d');
+        if(redoList.length > 0){
+            let lastStep = redoList.pop();
+            dispatch( pushToUndo(canvas.toDataURL()) );
+            let img = new Image();
+            img.src = lastStep;
+            img.onload = () => {
+                ctx.clearRect(0,0,canvas.width, canvas.height);
+                ctx.drawImage(img,0,0,canvas.width, canvas.height);
+            }
+        }
+        
     }
     const onSaveHandler = (e) => {
         e.preventDefault();

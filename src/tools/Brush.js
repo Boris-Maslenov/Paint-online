@@ -18,7 +18,7 @@ class Brush extends Tool{
     draw(x,y) {
         this.ctx.lineTo(x,y);
         //this.ctx.strokeStyle = 'black';
-        console.log(this.ctx.strokeStyle, this.ctx.fillStyle);
+        // console.log(this.ctx.strokeStyle, this.ctx.fillStyle);
         this.ctx.stroke();
     }
 

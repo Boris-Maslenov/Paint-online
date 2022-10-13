@@ -30,3 +30,9 @@ export const pushToUndo = (payload) => {
         payload
     }
 }
+export const pushToRedo = (payload) => {
+    return {
+        type: 'PUSH_REDO_LIST',
+        payload
+    }
+}

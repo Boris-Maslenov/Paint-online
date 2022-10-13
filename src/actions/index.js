@@ -24,3 +24,9 @@ export const setWidth = (width) => {
         payload: width
     }
 }
+export const pushToUndo = (payload) => {
+    return {
+        type: 'PUSH_UNDO_LIST',
+        payload
+    }
+}

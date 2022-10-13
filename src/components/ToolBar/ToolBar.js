@@ -9,8 +9,35 @@ import './toolbar.css';
 
 const ToolBar = () => {
     
-    const { canvas } = useSelector(state => state);
+    const { canvas, undoList } = useSelector(state => state);
     const dispatch = useDispatch();
+
+    const onUndoHandler = (e) => {
+        e.preventDefault();
+        let ctx = canvas.getContext('2d');
+        if(undoList.length > 0){
+            let lastStep = undoList.pop();
+            console.log(lastStep);
+            let img = new Image();
+            img.src = lastStep;
+            console.log(img);
+            img.onload = () => {
+                ctx.clearRect(0,0,canvas.width, canvas.height);
+                ctx.drawImage(img,0,0,canvas.width, canvas.height);
+            }
+        } else {
+            ctx.clearRect(0,0,canvas.width, canvas.height); 
+        }
+    }
+    const onRedoHandler = (e) => {
+        e.preventDefault();
+        console.log('onRedoHandler');
+    }
+    const onSaveHandler = (e) => {
+        e.preventDefault();
+        console.log('onSaveHandler');
+    }
+
 
     return (
         <div className="toolbar">
@@ -21,9 +48,9 @@ const ToolBar = () => {
             <button onClick={e => dispatch( setTool(new Line(canvas)) )} className="toolbar__button toolbar__button_line"></button>
             <input onChange={e => dispatch( setFillColor(e.target.value) )} type="color" className="toolbar__button toolbar__button_colors"/>
 
-            <button className="toolbar__button toolbar__button_undo" style={{'marginLeft' : 'auto'}}></button>
-            <button className="toolbar__button toolbar__button_redo"></button>
-            <button className="toolbar__button toolbar__button_save"></button>
+            <button onClick={e => onUndoHandler(e)} className="toolbar__button toolbar__button_undo" style={{'marginLeft' : 'auto'}}></button>
+            <button onClick={e => onRedoHandler(e)} className="toolbar__button toolbar__button_redo"></button>
+            <button onClick={e => onSaveHandler(e)} className="toolbar__button toolbar__button_save"></button>
         </div>
     )
 }

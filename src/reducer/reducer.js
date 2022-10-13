@@ -35,8 +35,21 @@ const reducer = (state = initialState, action) => {
                 ...state,
                 width: action.payload,
             }
-        default: return state
+        case 'PUSH_UNDO_LIST' :
+            return {
+                ...state,
+                undoList: [...state.undoList, action.payload]
+            }
+
+        case 'PUSH_REDO_LIST' :
+            return {
+                ...state,
+                redoList: [...state.redoList, action.payload]
+            }
+
+        default: return state   
     }
+    
 }
 
 export default reducer;

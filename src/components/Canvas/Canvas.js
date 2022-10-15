@@ -1,13 +1,16 @@
 import { useEffect, useRef, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { createCanvas, setTool, pushToUndo, setUserName, setSessionId, setSocket } from '../../actions';
+import FetcRequest from '../../services/services';
 import Brash from '../../tools/Brush';
+import Rect from '../../tools/Rect';
 import Modal from '../Modal/Modal';
 
 
 import './Canvas.css';
 
 const Canvas = () => {
+    const request = new FetcRequest();
     const dispatch = useDispatch();
     const canvasRef = useRef();
     const usernameRef = useRef();
@@ -26,6 +29,9 @@ const Canvas = () => {
 
     const onMouseDownHandler = () => {
         dispatch(pushToUndo( canvasRef.current.toDataURL() ));
+        request( `http://localhost:5000/image?id=${setSessionId}`, 'POST', {img: canvasRef.current.toDataURL()}  )
+            .then(response => console.log(response))
+            .catch(e =>  console.log(e))
     }
 
     const connect = () => {
@@ -52,6 +58,7 @@ const Canvas = () => {
         socket.onmessage = (e) => {
 
             let msg = JSON.parse(e.data);
+
             switch(msg.method) {
                 case 'connection' :
                 console.log(`Пользователь ${msg.username} подключился`);
@@ -60,12 +67,14 @@ const Canvas = () => {
                     console.log(msg);
                     drawHandler(msg);
                 break;
+
                 default: return msg;
             }
         }
     }
 
     const drawHandler = (msg) => {
+
         const figure = msg.figure;
         const ctx = canvasRef.current.getContext('2d');
 
@@ -73,6 +82,13 @@ const Canvas = () => {
 
             case 'brush' :
                 Brash.draw(ctx, figure.x, figure.y);
+            break;
+            case 'rect' :
+                Rect.staticDraw(ctx, figure.x, figure.y, figure.width, figure.height, figure.color);
+            break;
+
+            case 'finish' :
+                ctx.beginPath();
             break;
 
             default :

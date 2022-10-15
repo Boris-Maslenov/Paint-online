@@ -18,7 +18,7 @@ const reducer = (state = initialState, action) => {
             canvas: action.payload
         }
         case 'SET_TOOL' :
-            const newColorTool = {...action.payload};
+            const newColorTool = action.payload;
             newColorTool.setFillColor = state.color;
             return {
                 ...state,

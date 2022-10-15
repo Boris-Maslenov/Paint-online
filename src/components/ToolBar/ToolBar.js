@@ -8,7 +8,7 @@ import Line from '../../tools/Line';
 import './toolbar.css';
 
 const ToolBar = () => {
-    const { canvas, undoList, redoList } = useSelector(state => state);
+    const { canvas, undoList, redoList, socket, sessionid } = useSelector(state => state);
     const dispatch = useDispatch();
     const onUndoHandler = (e) => {
         e.preventDefault();
@@ -43,14 +43,20 @@ const ToolBar = () => {
     }
     const onSaveHandler = (e) => {
         e.preventDefault();
-        console.log('onSaveHandler');
+        const dataUrl = canvas.toDataURL();
+        const a = document.createElement('a');
+        a.href = dataUrl;
+        a.download = sessionid + '.jpg';
+        document.body.append(a);
+        a.click();
+        document.body.removeChild(a);
     }
 
 
     return (
         <div className="toolbar">
-            <button onClick={e => dispatch( setTool(new Brush(canvas)) )} className={`toolbar__button toolbar__button_brush`}></button>
-            <button onClick={e => dispatch( setTool(new Rect(canvas)) )} className="toolbar__button toolbar__button_rect"></button>
+            <button onClick={e => dispatch( setTool(new Brush(canvas, socket, sessionid)) )} className={`toolbar__button toolbar__button_brush`}></button>
+            <button onClick={e => dispatch( setTool(new Rect(canvas, socket, sessionid)) )} className="toolbar__button toolbar__button_rect"></button>
             <button onClick={e => dispatch( setTool(new Circle(canvas)) )} className="toolbar__button toolbar__button_circle"></button>
             <button onClick={e => dispatch( setTool(new Elaser(canvas)) )} className="toolbar__button toolbar__button_elaser"></button>
             <button onClick={e => dispatch( setTool(new Line(canvas)) )} className="toolbar__button toolbar__button_line"></button>
@@ -64,4 +70,3 @@ const ToolBar = () => {
 }
 
 export default ToolBar;
-

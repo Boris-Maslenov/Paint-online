@@ -15,7 +15,7 @@ import React from 'react';
     return open ?
             <div ref={modalRef} className="modal modal__overlay" onClick={e => setOpen(false)}>
                 <div className="modal__inner" onClick={e => e.stopPropagation()}>
-                    <h1>Это модалка</h1>
+                    <h2>Привет!</h2>
                     {children}
                 </div>
             </div>

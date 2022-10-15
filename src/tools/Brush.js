@@ -20,6 +20,13 @@ class Brush extends Tool{
 
     mouseUpHandler = (e) => {
         this.mouseDown = false;
+        this.socket.send(JSON.stringify({
+            method: 'draw',
+            id: this.id,
+            figure: {
+                type: 'finish',
+            }
+        }));
     }
     mouseDownHandler = (e) => {
         this.mouseDown = true;
@@ -29,7 +36,6 @@ class Brush extends Tool{
     mouseMoveHandler = (e) => {
         if(this.mouseDown){
             // this.draw(e.pageX - e.target.offsetLeft, e.pageY - e.target.offsetTop);
-            console.log('mouseDown');
             this.socket.send(JSON.stringify({
                 method: 'draw',
                 id: this.id,

@@ -3,7 +3,7 @@ import './Modal.css';
 import React from 'react';
 
     const Modal = ({open, setOpen, children}) => {
-    console.log('Modal');
+    // console.log('Modal');
     const modalRef = useRef();
 
     if(open){

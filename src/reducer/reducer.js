@@ -6,6 +6,8 @@ const initialState = {
     undoList: [],
     redoList: [],
     username: '',
+    socket: null,
+    sessionid: null,
 }
 
 const reducer = (state = initialState, action) => {
@@ -16,7 +18,7 @@ const reducer = (state = initialState, action) => {
             canvas: action.payload
         }
         case 'SET_TOOL' :
-            const newColorTool = action.payload;
+            const newColorTool = {...action.payload};
             newColorTool.setFillColor = state.color;
             return {
                 ...state,
@@ -52,6 +54,17 @@ const reducer = (state = initialState, action) => {
             return {
                 ...state,
                 username: action.payload
+            }
+
+        case 'SET_SOCKET' :
+            return {
+                ...state,
+                socket: action.payload
+            }
+        case 'SET_SESSION_ID' :
+            return {
+                ...state,
+                sessionid: action.payload
             }
 
         default: return state   

@@ -10,9 +10,6 @@ import './toolbar.css';
 const ToolBar = () => {
     const { canvas, undoList, redoList } = useSelector(state => state);
     const dispatch = useDispatch();
-    console.log('undo:', undoList, 'redo:', redoList);
-
-
     const onUndoHandler = (e) => {
         e.preventDefault();
         let ctx = canvas.getContext('2d');

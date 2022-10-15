@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { createCanvas, setTool, pushToUndo, setUserName } from '../../actions';
+import { createCanvas, setTool, pushToUndo, setUserName, setSessionId, setSocket } from '../../actions';
 import Brash from '../../tools/Brush';
 import Modal from '../Modal/Modal';
 
@@ -15,7 +15,7 @@ const Canvas = () => {
     const [ open, setOpen ] = useState(true);
     useEffect( () => {
         dispatch( createCanvas(canvasRef.current) );
-        dispatch( setTool( new Brash(canvasRef.current))  );
+        //dispatch( setTool( new Brash(canvasRef.current))  );
         // eslint-disable-next-line
     }, [] );
 
@@ -30,25 +30,61 @@ const Canvas = () => {
 
     const connect = () => {
         const socket = new WebSocket('ws://localhost:5000/');
+
         const data = {
             id: window.location.pathname.replace('/', ''),
             username: username,
             method: 'connection',
         }
-        console.log(data);
+
+        dispatch(setSocket(socket));
+        dispatch(setSessionId(data.id));
+
+        const newBrash = new Brash(canvasRef.current, socket, data.id);
+
+        dispatch( setTool( newBrash )  );
+
         socket.onopen = () => {
+            console.log(data); //{id: 'f183dc4bfa83', username: 'dddddd', method: 'draw'}
             socket.send(JSON.stringify(data));
         } 
 
         socket.onmessage = (e) => {
-            console.log(e.data);
+
+            let msg = JSON.parse(e.data);
+            switch(msg.method) {
+                case 'connection' :
+                console.log(`Пользователь ${msg.username} подключился`);
+                    break;
+                case 'draw' :
+                    console.log(msg);
+                    drawHandler(msg);
+                break;
+                default: return msg;
+            }
+        }
+    }
+
+    const drawHandler = (msg) => {
+        const figure = msg.figure;
+        const ctx = canvasRef.current.getContext('2d');
+
+        switch(figure.type) {
+
+            case 'brush' :
+                Brash.draw(ctx, figure.x, figure.y);
+            break;
+
+            default :
+            return null;
         }
     }
 
     const connectHandler = (name) => {
             if( name.trim() !== '' && name.length > 3 ) {
-                dispatch(setUserName(name));
                 setOpen(false);
+                dispatch(setUserName(name));
+                
             }
     }
 

@@ -43,3 +43,17 @@ export const setUserName = (payload) => {
         payload
     }
 }
+
+export const setSocket = (payload) => {
+    return {
+        type: 'SET_SOCKET',
+        payload
+    }
+}
+
+export const setSessionId = (payload) => {
+    return {
+        type: 'SET_SESSION_ID',
+        payload
+    }
+}

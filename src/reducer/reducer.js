@@ -4,7 +4,8 @@ const initialState = {
     color: '#000',
     width: '1px',
     undoList: [],
-    redoList: []
+    redoList: [],
+    username: '',
 }
 
 const reducer = (state = initialState, action) => {
@@ -45,6 +46,12 @@ const reducer = (state = initialState, action) => {
             return {
                 ...state,
                 redoList: [...state.redoList, action.payload]
+            }
+
+        case 'SET_USER_NAME' :
+            return {
+                ...state,
+                username: action.payload
             }
 
         default: return state   

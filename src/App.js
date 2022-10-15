@@ -4,11 +4,7 @@ import Canvas from './components/Canvas/Canvas';
 import SettingBar from './components/SettingBar/SettingBar';
 import ToolBar from './components/ToolBar/ToolBar';
 
-import Modal from './components/Modal/Modal';
-
 function App() {
-  const [ open, setOpen ] = useState(false);
-  console.log(open);
   return (
     <div className="App">
       <div className="header">
@@ -26,11 +22,6 @@ function App() {
           <Canvas/>
         </div>
       </div>
-      <Modal open={open} setOpen={setOpen}>
-          <p>А это childrens</p>
-      </Modal>
-
-      <button onClick={e=>setOpen(true)}>cdsfdf</button>
     </div>
   );
 }

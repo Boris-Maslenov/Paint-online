@@ -14,8 +14,10 @@ const Canvas = () => {
     const dispatch = useDispatch();
     const canvasRef = useRef();
     const usernameRef = useRef();
-    const { username, sessionid } = useSelector(state=>state);
+    const sessionid = useSelector(state=>state.sessionid);
+    const username  = useSelector(state=>state.username);
     const [ open, setOpen ] = useState(true);
+
     useEffect( () => {
         dispatch( createCanvas(canvasRef.current) );
         //dispatch( setTool( new Brash(canvasRef.current))  );
@@ -23,9 +25,33 @@ const Canvas = () => {
     }, [] );
 
     useEffect( () => {
-        if(username) connect();
+        if(username) {
+            connect(); 
+        } 
         // eslint-disable-next-line
     }, [username] );
+
+    useEffect( () => {
+
+        if(sessionid) {
+            console.log(sessionid);
+            request.request( `http://localhost:5000/image?id=${sessionid}` ) 
+            .then(response => {
+                const ctx = canvasRef.current.getContext('2d');
+                const img = document.createElement('img');
+                // const data = JSON.parse(response);
+                 console.log(response);
+                img.src = response.data;
+                img.onload = () => {
+                    ctx.clearRect(0, 0, canvasRef.current.width, canvasRef.current.height); 
+                    ctx.drawImage(img, 0, 0, canvasRef.current.width, canvasRef.current.height);
+                }
+            })
+            .catch(e =>  console.log(e))
+        } 
+
+        // eslint-disable-next-line
+    }, [sessionid] );
 
     const onMouseDownHandler = () => {
         dispatch(pushToUndo( canvasRef.current.toDataURL() ));
@@ -46,19 +72,14 @@ const Canvas = () => {
             username: username,
             method: 'connection',
         }
-
         dispatch(setSocket(socket));
         dispatch(setSessionId(data.id));
-
         const newBrash = new Brash(canvasRef.current, socket, data.id);
-
         dispatch( setTool( newBrash )  );
-
         socket.onopen = () => {
-            console.log(data); //{id: 'f183dc4bfa83', username: 'dddddd', method: 'draw'}
+            //console.log(data); //{id: 'f183dc4bfa83', username: 'dddddd', method: 'draw'}
             socket.send(JSON.stringify(data));
         } 
-
         socket.onmessage = (e) => {
 
             let msg = JSON.parse(e.data);

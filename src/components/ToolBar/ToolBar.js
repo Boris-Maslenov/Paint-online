@@ -58,8 +58,8 @@ const ToolBar = () => {
             <button onClick={e => dispatch( setTool(new Brush(canvas, socket, sessionid)) )} className={`toolbar__button toolbar__button_brush`}></button>
             <button onClick={e => dispatch( setTool(new Rect(canvas, socket, sessionid)) )} className="toolbar__button toolbar__button_rect"></button>
             <button onClick={e => dispatch( setTool(new Circle(canvas)) )} className="toolbar__button toolbar__button_circle"></button>
-            <button onClick={e => dispatch( setTool(new Elaser(canvas)) )} className="toolbar__button toolbar__button_elaser"></button>
-            <button onClick={e => dispatch( setTool(new Line(canvas)) )} className="toolbar__button toolbar__button_line"></button>
+            <button onClick={e => dispatch( setTool(new Elaser(canvas, socket, sessionid)) )} className="toolbar__button toolbar__button_elaser"></button>
+            <button onClick={e => dispatch( setTool(new Line(canvas, socket, sessionid)) )} className="toolbar__button toolbar__button_line"></button>
             <input onChange={e => dispatch( setFillColor(e.target.value) )} type="color" className="toolbar__button toolbar__button_colors"/>
 
             <button onClick={e => onUndoHandler(e)} className="toolbar__button toolbar__button_undo" style={{'marginLeft' : 'auto'}}></button>

@@ -28,10 +28,12 @@ class Rect extends Tool{
 
     static staticDraw(ctx, x, y, w, h, color){
         ctx.fillStyle = color;
+        ctx.strokeStyle = color;
         ctx.beginPath();
         ctx.rect(x, y, w, h);
         ctx.fill();
         ctx.stroke();
+        ctx.beginPath();
     }
 
 
@@ -50,8 +52,6 @@ class Rect extends Tool{
                 color: this.ctx.fillStyle
             }
         }));
-
-
     }
 
     mouseDownHandler = (e) => {
@@ -59,8 +59,7 @@ class Rect extends Tool{
         this.ctx.beginPath();
         this.startX = e.pageX - e.target.offsetLeft;
         this.startY = e.pageY - e.target.offsetTop;
-        this.saved = this.canvas.toDataURL(); // снимок предыдущего рисования
-        //console.log(this.saved);
+        this.saved = this.canvas.toDataURL();
     }
     mouseMoveHandler = (e) => {
         if(this.mouseDown){

@@ -4,8 +4,8 @@ import Tool from "./Tool";
 
 class Line extends Tool {
 
-    constructor(canvas){
-        super(canvas);
+    constructor(canvas, socket, id){
+        super(canvas, socket, id);
         this.listen();
     }
 
@@ -28,8 +28,32 @@ class Line extends Tool {
              }
     }
 
+    static staticDraw = (ctx, x, y, cx, cy, color, width) => {
+            ctx.fillStyle = color;
+            ctx.strokeStyle = color;
+            ctx.lineWidth = width;
+            ctx.beginPath();
+            ctx.moveTo(cx, cy );
+            ctx.lineTo(x, y);
+            ctx.stroke();       
+    }
+
     mouseUpHandler = (e) => {
         this.mouseDown = false;
+
+        this.socket.send(JSON.stringify({
+            method: 'draw',
+            id: this.id,
+            figure: {
+                type: 'line',
+                x: e.pageX - e.target.offsetLeft,
+                y: e.pageY - e.target.offsetTop,
+                currentX: this.currentX,
+                currentY: this.currentY,
+                color: this.ctx.fillStyle,
+                width: this.ctx.lineWidth,
+            }
+        }));
     }
 
     mouseDownHandler = (e) => {

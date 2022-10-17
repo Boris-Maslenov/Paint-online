@@ -2,9 +2,11 @@ import { useEffect, useRef, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { createCanvas, setTool, pushToUndo, setUserName, setSessionId, setSocket } from '../../actions';
 import FetcRequest from '../../services/services';
+import Modal from '../Modal/Modal';
 import Brash from '../../tools/Brush';
 import Rect from '../../tools/Rect';
-import Modal from '../Modal/Modal';
+import Elaser from '../../tools/Elaser';
+import Line from '../../tools/Line';
 
 
 import './Canvas.css';
@@ -97,6 +99,18 @@ const Canvas = () => {
             }
         }
     }
+    
+    const getCtx = (ctx) => {
+         return  {
+                color: ctx.strokeStyle,
+                style: ctx.lineWidth,
+            }
+    }
+    const setCtx = (ctx, CW) => {
+        ctx.strokeStyle = CW.color;
+        ctx.fillStyle = CW.color;
+        ctx.lineWidth = CW.style;
+    }
 
     const drawHandler = (msg) => {
 
@@ -106,10 +120,24 @@ const Canvas = () => {
         switch(figure.type) {
 
             case 'brush' :
-                Brash.draw(ctx, figure.x, figure.y);
+                const brushCW = getCtx(ctx);
+                Brash.draw(ctx, figure.x, figure.y, figure.color, figure.width);
+                setCtx(ctx, brushCW);
+            break;
+            case 'elaser' :
+                const eliserCW = getCtx(ctx);
+                Elaser.draw(ctx, figure.x, figure.y, figure.width);
+                setCtx(ctx, eliserCW);
+            break;
+            case 'line' :
+                const lineCW = getCtx(ctx);
+                Line.staticDraw(ctx, figure.x, figure.y, figure.currentX, figure.currentY, figure.color, figure.width);
+                setCtx(ctx, lineCW);
             break;
             case 'rect' :
+                const rectCW = getCtx(ctx);
                 Rect.staticDraw(ctx, figure.x, figure.y, figure.width, figure.height, figure.color);
+                setCtx(ctx, rectCW);
             break;
 
             case 'finish' :

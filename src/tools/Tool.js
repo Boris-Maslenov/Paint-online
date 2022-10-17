@@ -22,6 +22,18 @@ class Tool {
         this.canvas.onmouseup = null;
     }
 
+    // static setOptions = (ctx) => {
+    //     return  {
+    //                 color: ctx.strokeStyle,
+    //                 style: ctx.lineWidth,
+    //             }
+    // }
+
+    // static getOptions = (ctx, options) => {
+    //     ctx.strokeStyle = options.color;
+    //     ctx.lineWidth = options.weight;
+    // }
+
 }
 
 export default Tool;

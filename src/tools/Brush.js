@@ -1,6 +1,6 @@
 import Tool from "./Tool";
 
-class Brush extends Tool{
+class Brush extends Tool {
 
     constructor(canvas, socket, id) {
         super(canvas, socket, id);
@@ -13,7 +13,10 @@ class Brush extends Tool{
         this.canvas.onmouseup = this.mouseUpHandler;
     }
 
-    static draw(ctx, x,y) {
+
+    static draw(ctx, x, y, color, width) {
+        ctx.strokeStyle = color;
+        ctx.lineWidth = width;
         ctx.lineTo(x,y);
         ctx.stroke();
     }
@@ -30,8 +33,8 @@ class Brush extends Tool{
     }
     mouseDownHandler = (e) => {
         this.mouseDown = true;
-        this.ctx.beginPath(); //начали рисовать линию
-        this.ctx.moveTo(e.pageX - e.target.offsetLeft, e.pageY - e.target.offsetTop);
+        // this.ctx.beginPath(); //начали рисовать линию
+        // this.ctx.moveTo(e.pageX - e.target.offsetLeft, e.pageY - e.target.offsetTop);
     }
     mouseMoveHandler = (e) => {
         if(this.mouseDown){
@@ -43,6 +46,8 @@ class Brush extends Tool{
                     type: 'brush',
                     x: e.pageX - e.target.offsetLeft,
                     y: e.pageY - e.target.offsetTop,
+                    color: this.ctx.strokeStyle,
+                    width: this.ctx.lineWidth,
                 }
             }));
 

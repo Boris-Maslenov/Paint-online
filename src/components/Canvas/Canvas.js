@@ -14,7 +14,7 @@ const Canvas = () => {
     const dispatch = useDispatch();
     const canvasRef = useRef();
     const usernameRef = useRef();
-    const username = useSelector(state=>state.username);
+    const { username, sessionid } = useSelector(state=>state);
     const [ open, setOpen ] = useState(true);
     useEffect( () => {
         dispatch( createCanvas(canvasRef.current) );
@@ -29,7 +29,11 @@ const Canvas = () => {
 
     const onMouseDownHandler = () => {
         dispatch(pushToUndo( canvasRef.current.toDataURL() ));
-        request( `http://localhost:5000/image?id=${setSessionId}`, 'POST', {img: canvasRef.current.toDataURL()}  )
+    }
+
+    const onMouseUpHandler = (e) => {
+        const data = JSON.stringify( {img: canvasRef.current.toDataURL()} );
+        request.request( `http://localhost:5000/image?id=${sessionid}`, 'POST', data ) 
             .then(response => console.log(response))
             .catch(e =>  console.log(e))
     }
@@ -100,13 +104,12 @@ const Canvas = () => {
             if( name.trim() !== '' && name.length > 3 ) {
                 setOpen(false);
                 dispatch(setUserName(name));
-                
             }
     }
 
     return (
         <>
-        <canvas onMouseDown={e => onMouseDownHandler(e)} ref={canvasRef}  width={700} height={500} className='canvas'></canvas>
+        <canvas onMouseUp={e => onMouseUpHandler(e)} onMouseDown={e => onMouseDownHandler(e)} ref={canvasRef}  width={700} height={500} className='canvas'></canvas>
             <Modal open={open} setOpen={setOpen}>
                 <h4>Нужно представиться</h4>
                 <input ref={usernameRef} type="text" placeholder="ВАся" />

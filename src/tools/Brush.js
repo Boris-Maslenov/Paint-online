@@ -15,10 +15,12 @@ class Brush extends Tool {
 
 
     static draw(ctx, x, y, color, width) {
+        const rectOptions = Tool.setOptions(ctx);
         ctx.strokeStyle = color;
         ctx.lineWidth = width;
         ctx.lineTo(x,y);
         ctx.stroke();
+        Tool.getOptions(ctx, rectOptions);
     }
 
     mouseUpHandler = (e) => {

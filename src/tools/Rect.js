@@ -1,7 +1,6 @@
 import Tool from "./Tool";
 
 class Rect extends Tool{
-
     constructor(canvas, socket, id) {
         super(canvas, socket, id);
         this.listen();
@@ -27,6 +26,7 @@ class Rect extends Tool{
     }
 
     static staticDraw(ctx, x, y, w, h, color){
+        const rectOptions = Tool.setOptions(ctx);
         ctx.fillStyle = color;
         ctx.strokeStyle = color;
         ctx.beginPath();
@@ -34,12 +34,12 @@ class Rect extends Tool{
         ctx.fill();
         ctx.stroke();
         ctx.beginPath();
+        Tool.getOptions(ctx, rectOptions);
     }
 
 
     mouseUpHandler = (e) => {
         this.mouseDown = false;
-
         this.socket.send(JSON.stringify({
             method: 'draw',
             id: this.id,
@@ -61,6 +61,7 @@ class Rect extends Tool{
         this.startY = e.pageY - e.target.offsetTop;
         this.saved = this.canvas.toDataURL();
     }
+    
     mouseMoveHandler = (e) => {
         if(this.mouseDown){
             let currentX = e.pageX - e.target.offsetLeft;

@@ -1,5 +1,4 @@
 import './App.css';
-import {useState} from 'react'
 import Canvas from './components/Canvas/Canvas';
 import SettingBar from './components/SettingBar/SettingBar';
 import ToolBar from './components/ToolBar/ToolBar';

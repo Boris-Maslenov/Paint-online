@@ -1,7 +1,7 @@
+import Tool from './Tool';
 import Brush from './Brush';
 
 class Elaser extends  Brush {
-
     constructor(canvas, socket, id){
         super(canvas, socket, id);  
         this.listen();
@@ -20,10 +20,12 @@ class Elaser extends  Brush {
     // }
 
     static draw(ctx, x,y, width) {
+        const rectOptions = Tool.setOptions(ctx);
         ctx.strokeStyle = 'white';
         ctx.lineWidth = width;
         ctx.lineTo(x,y);
         ctx.stroke();
+        Tool.getOptions(ctx, rectOptions);
     }
 
     mouseMoveHandler = (e) => {

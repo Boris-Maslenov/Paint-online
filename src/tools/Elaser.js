@@ -1,7 +1,7 @@
-import Tool from './Tool';
-import Brush from './Brush';
+import {Tool} from './Tool';
+import {Brush} from './Brush';
 
-class Elaser extends  Brush {
+export class Elaser extends  Brush {
     constructor(canvas, socket, id){
         super(canvas, socket, id);  
         this.listen();
@@ -46,5 +46,3 @@ class Elaser extends  Brush {
     }
 
 }
-
-export default Elaser;

@@ -1,4 +1,4 @@
-class Tool {
+export class Tool {
     constructor(canvas, socket, id){
         this.canvas = canvas;
         this.ctx = canvas.getContext('2d');
@@ -36,5 +36,3 @@ class Tool {
     }
 
 }
-
-export default Tool;

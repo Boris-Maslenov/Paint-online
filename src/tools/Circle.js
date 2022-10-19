@@ -1,6 +1,6 @@
-import Tool from './Tool';
+import {Tool} from './Tool';
 
-class Circle extends Tool {
+export class Circle extends Tool {
     constructor(canvas, socket, id){
         super(canvas, socket, id);
         this.listen();
@@ -71,5 +71,3 @@ class Circle extends Tool {
         }
     }
 }
-
-export default Circle;

@@ -1,6 +1,6 @@
-import Tool from "./Tool";
+import {Tool} from "./Tool";
 
-class Rect extends Tool{
+export class Rect extends Tool{
     constructor(canvas, socket, id) {
         super(canvas, socket, id);
         this.listen();
@@ -72,5 +72,3 @@ class Rect extends Tool{
         }
     }
 }
-
-export default Rect;

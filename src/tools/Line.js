@@ -1,8 +1,6 @@
+import {Tool} from "./Tool";
 
-// import Brush from "./Brush";
-import Tool from "./Tool";
-
-class Line extends Tool {
+export class Line extends Tool {
     constructor(canvas, socket, id){
         super(canvas, socket, id);
         this.listen();
@@ -72,5 +70,3 @@ class Line extends Tool {
     }
 
 }
-
-export default Line;

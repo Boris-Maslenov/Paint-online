@@ -1,10 +1,6 @@
 import { useDispatch, useSelector } from 'react-redux';
 import { setTool, setFillColor, pushToRedo, pushToUndo } from '../../actions';
-import Brush from '../../tools/Brush';
-import Rect from '../../tools/Rect';
-import Elaser from '../../tools/Elaser';
-import Circle from '../../tools/Circle';
-import Line from '../../tools/Line';
+import {Brush, Rect, Elaser, Line, Circle} from '../../tools'
 import './toolbar.css';
 
 const ToolBar = () => {

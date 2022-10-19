@@ -1,6 +1,6 @@
-import Tool from "./Tool";
+import {Tool} from "./Tool";
 
-class Brush extends Tool {
+export class Brush extends Tool {
 
     constructor(canvas, socket, id) {
         super(canvas, socket, id);
@@ -56,5 +56,3 @@ class Brush extends Tool {
         }
     }
 }
-
-export default Brush;

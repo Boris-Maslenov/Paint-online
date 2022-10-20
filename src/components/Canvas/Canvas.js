@@ -1,15 +1,10 @@
 import { useEffect, useRef, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { createCanvas, setTool, pushToUndo, setUserName, setSessionId, setSocket } from '../../actions';
+import Modal from '../Modal/Modal';
 import FetcRequest from '../../services/services';
 import {Brush, Rect, Elaser, Line, Circle} from '../../tools'
 
-import Modal from '../Modal/Modal';
-// import Brash from '../../tools/Brush';
-// import Rect from '../../tools/Rect';
-// import Elaser from '../../tools/Elaser';
-// import Line from '../../tools/Line';
-// import Circle from '../../tools/Circle';
 import './Canvas.css';
 
 const Canvas = () => {
@@ -72,8 +67,8 @@ const Canvas = () => {
         }
         dispatch(setSocket(socket));
         dispatch(setSessionId(data.id));
-        // const newBrash = new Brash(canvas, socket, data.id);
-        // dispatch( setTool( newBrash )  );
+        const newBrash = new Brush(canvas, socket, data.id);
+        dispatch( setTool( newBrash )  );
         socket.onopen = () => {
             socket.send(JSON.stringify(data));
         } 

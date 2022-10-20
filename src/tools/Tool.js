@@ -29,6 +29,7 @@ export class Tool {
                     weight: ctx.lineWidth,
                 }
     }
+
     static getOptions = (ctx, options) => {
         ctx.strokeStyle = options.color;
         ctx.fillStyle = options.color;

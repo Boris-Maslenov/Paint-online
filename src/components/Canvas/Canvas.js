@@ -2,9 +2,9 @@ import { useEffect,  useLayoutEffect, useRef, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { createCanvas, setTool, pushToUndo, setUserName, setSessionId, setSocket, setUserId } from '../../actions';
 import Modal from '../Modal/Modal';
-import FetcRequest from '../../services/FetcRequest';
+// import FetcRequest from '../../services/FetcRequest';
 import { toolsFactory } from '../../services/toolsFactory';
-import {Brush, Rect, Elaser, Line, Circle} from '../../tools';
+// import {Brush, Rect, Elaser, Line, Circle} from '../../tools';
 
 import './Canvas.css';
 
@@ -56,8 +56,11 @@ const canvasHandler = (canvas) => {
     let currentX;
     let currentY;
 
+    let saved;
+
     function mouseDownHandler(e) {
         mouseDown = true;
+        saved = canvas.toDataURL();
         ctx.beginPath()
         startX = e.pageX - e.target.offsetLeft;
         startY = e.pageY - e.target.offsetTop;
@@ -74,7 +77,9 @@ const canvasHandler = (canvas) => {
             const params =  {
                     method: 'DRAW',
                     ctx: ctx,
-                    type: 'BRUSH',
+                    type: tool,
+                    saved: saved,
+                    canvas: canvas,
                         figure: {
                             startX: startX,
                             startY: startY,

@@ -10,8 +10,12 @@ const TOOLS_MAP = {
 
 export class toolsFactory {
     static init(params){
-        const {type} = params; 
-        TOOLS_MAP[type].draw(params);
+        try {
+            const {type} = params; 
+            TOOLS_MAP[type].draw(params);
+        } catch(e) {
+            console.log('Инструмент не найден', e);
+        }
     }
 }
 

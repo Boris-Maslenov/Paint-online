@@ -1,13 +1,14 @@
 const initialState = {
-    tool: null,
+    tool: 'BRUSH',
     canvas: null,
     color: '#000',
     width: '1px',
     undoList: [],
     redoList: [],
-    username: '',
-    socket: null,
-    sessionid: null,
+    userName: '',
+    socket: new WebSocket('ws://localhost:5000'),
+    sessionId: null,
+    userId: null,
 }
 
 const reducer = (state = initialState, action) => {
@@ -18,22 +19,17 @@ const reducer = (state = initialState, action) => {
             canvas: action.payload
         }
         case 'SET_TOOL' :
-            const newColorTool = action.payload;
-            newColorTool.setFillColor = state.color;
             return {
                 ...state,
-                tool: newColorTool
+                tool: action.payload
             }
         case 'SET_COLOR' :
-            const newColor = state.tool;
-            newColor.setFillColor = action.payload;
             return {
                 ...state,
                 color:  action.payload,
             }
+
         case 'SET_WIDTH' :
-            const newWidthTool = state.tool;
-            newWidthTool.setWidth = action.payload;
             return {
                 ...state,
                 width: action.payload,
@@ -53,7 +49,7 @@ const reducer = (state = initialState, action) => {
         case 'SET_USER_NAME' :
             return {
                 ...state,
-                username: action.payload
+                userName: action.payload
             }
 
         case 'SET_SOCKET' :
@@ -64,9 +60,13 @@ const reducer = (state = initialState, action) => {
         case 'SET_SESSION_ID' :
             return {
                 ...state,
-                sessionid: action.payload
+                sessionId: action.payload
             }
-
+        case 'SET_USER_ID' :
+            return {
+                ...state,
+                userId: action.payload
+            }
         default: return state   
     }
     

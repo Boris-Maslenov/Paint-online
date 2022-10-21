@@ -11,7 +11,7 @@ export const createCanvas = (ref) => {
     }
 }
 
-export const setFillColor = (color) => {
+export const setColor = (color) => {
     return {
         type: 'SET_COLOR',
         payload: color
@@ -54,6 +54,12 @@ export const setSocket = (payload) => {
 export const setSessionId = (payload) => {
     return {
         type: 'SET_SESSION_ID',
+        payload
+    }
+}
+export const setUserId = (payload) => {
+    return {
+        type: 'SET_USER_ID',
         payload
     }
 }

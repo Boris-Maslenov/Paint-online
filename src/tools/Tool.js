@@ -1,39 +1,12 @@
 export class Tool {
-    constructor(canvas, socket, id){
+    constructor(canvas, color, width, x, y){
         this.canvas = canvas;
         this.ctx = canvas.getContext('2d');
-        this.socket = socket;
-        this.id = id;
-        this.deleteEvents();
-    }
-
-    set setFillColor(color){
-        this.ctx.fillStyle = color;
+        this.ctx.beginPath();
+        this.x = x;
+        this.y = y;
         this.ctx.strokeStyle = color;
-    }
-
-    set setWidth(width){
         this.ctx.lineWidth = width;
-    }
-
-    deleteEvents = () => {
-        this.canvas.onmousemove = null;
-        this.canvas.onmousedown = null;
-        this.canvas.onmouseup = null;
-    }
-
-    static setOptions = (ctx) => {
-        return  {
-                    color: ctx.strokeStyle,
-                    style: ctx.fillStyle,
-                    weight: ctx.lineWidth,
-                }
-    }
-
-    static getOptions = (ctx, options) => {
-        ctx.strokeStyle = options.color;
-        ctx.fillStyle = options.color;
-        ctx.lineWidth = options.weight;
     }
 
 }

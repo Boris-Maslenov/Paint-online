@@ -21,7 +21,12 @@ app.ws('/', (ws, req) => {
     //  принимаем сообщение с клиента
     ws.on('message', (msg) => {
         msg = JSON.parse(msg);
-        
+        // {
+        //     sessionId: 'f183f600288b',
+        //     userId: 'u30176627722371',
+        //     userName: 'ererewr',      
+        //     method: 'connection'      
+        //   }
         switch(msg.method){
             case 'connection' : 
             connectionHandler(ws, msg);
@@ -40,13 +45,14 @@ app.listen(PORT, () => {
 
 
 const connectionHandler = (ws, msg) => {
-   ws.id = msg.id;
+   ws.sessionId = msg.sessionId;
+   ws.userId = msg.userId;
    broadcastConnection(ws, msg);
 }
 
 const broadcastConnection = (ws, msg) => {
     aWss.clients.forEach(client => {
-        if(client.id === msg.id){
+        if(client.sessionId === msg.sessionId && client.userId !== msg.userId) {
            //client.send(`Пользователь ${msg.username} подключился`); 
            client.send(JSON.stringify(msg)); 
         }

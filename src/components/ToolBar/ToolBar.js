@@ -1,5 +1,5 @@
 import { useDispatch, useSelector } from 'react-redux';
-import { setTool, setFillColor, pushToRedo, pushToUndo } from '../../actions';
+import { setTool, setColor, pushToRedo, pushToUndo } from '../../actions';
 import {Brush, Rect, Elaser, Line, Circle} from '../../tools'
 import './toolbar.css';
 
@@ -51,12 +51,12 @@ const ToolBar = () => {
 
     return (
         <div className="toolbar">
-            <button onClick={e => dispatch( setTool(new Brush(canvas, socket, sessionid)) )} className={`toolbar__button toolbar__button_brush`}></button>
+            {/* <button onClick={e => dispatch( setTool(new Brush(canvas, socket, sessionid)) )} className={`toolbar__button toolbar__button_brush`}></button>
             <button onClick={e => dispatch( setTool(new Rect(canvas, socket, sessionid)) )} className="toolbar__button toolbar__button_rect"></button>
             <button onClick={e => dispatch( setTool(new Circle(canvas, socket, sessionid)) )} className="toolbar__button toolbar__button_circle"></button>
             <button onClick={e => dispatch( setTool(new Elaser(canvas, socket, sessionid)) )} className="toolbar__button toolbar__button_elaser"></button>
-            <button onClick={e => dispatch( setTool(new Line(canvas, socket, sessionid)) )} className="toolbar__button toolbar__button_line"></button>
-            <input onChange={e => dispatch( setFillColor(e.target.value) )} type="color" className="toolbar__button toolbar__button_colors"/>
+            <button onClick={e => dispatch( setTool(new Line(canvas, socket, sessionid)) )} className="toolbar__button toolbar__button_line"></button> */}
+            <input onChange={e => dispatch( setColor(e.target.value) )} type="color" className="toolbar__button toolbar__button_colors"/>
 
             <button onClick={e => onUndoHandler(e)} className="toolbar__button toolbar__button_undo" style={{'marginLeft' : 'auto'}}></button>
             <button onClick={e => onRedoHandler(e)} className="toolbar__button toolbar__button_redo"></button>

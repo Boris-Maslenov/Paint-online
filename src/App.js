@@ -4,6 +4,7 @@ import SettingBar from './components/SettingBar/SettingBar';
 import ToolBar from './components/ToolBar/ToolBar';
 
 function App() {
+  // console.log('App');
   return (
     <div className="App">
       <div className="header">

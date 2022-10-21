@@ -1,11 +1,12 @@
 import { useDispatch, useSelector } from 'react-redux';
 import { setTool, setColor, pushToRedo, pushToUndo } from '../../actions';
-import {Brush, Rect, Elaser, Line, Circle} from '../../tools'
 import './toolbar.css';
 
 const ToolBar = () => {
-    const { canvas, undoList, redoList, socket, sessionid } = useSelector(state => state);
+    const { canvas, undoList, redoList, sessionId } = useSelector(state => state);
     const dispatch = useDispatch();
+
+
     const onUndoHandler = (e) => {
         e.preventDefault();
         let ctx = canvas.getContext('2d');
@@ -22,6 +23,8 @@ const ToolBar = () => {
             ctx.clearRect(0,0,canvas.width, canvas.height); 
         }
     }
+
+
     const onRedoHandler = (e) => {
         e.preventDefault();
         let ctx = canvas.getContext('2d');
@@ -35,14 +38,15 @@ const ToolBar = () => {
                 ctx.drawImage(img,0,0,canvas.width, canvas.height);
             }
         }
-        
     }
+
+
     const onSaveHandler = (e) => {
         e.preventDefault();
         const dataUrl = canvas.toDataURL();
         const a = document.createElement('a');
         a.href = dataUrl;
-        a.download = sessionid + '.jpg';
+        a.download = sessionId + '.jpg';
         document.body.append(a);
         a.click();
         document.body.removeChild(a);

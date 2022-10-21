@@ -2,11 +2,11 @@ const initialState = {
     tool: 'BRUSH',
     canvas: null,
     color: '#000',
-    width: '1px',
+    width: '1',
     undoList: [],
     redoList: [],
     userName: '',
-    socket: new WebSocket('ws://localhost:5000'),
+    socket: null,
     sessionId: null,
     userId: null,
 }

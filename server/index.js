@@ -27,13 +27,17 @@ app.ws('/', (ws, req) => {
         //     userName: 'ererewr',      
         //     method: 'connection'      
         //   }
+        // console.log(msg);
         switch(msg.method){
-            case 'connection' : 
+            case 'CONNECTION' : 
             connectionHandler(ws, msg);
             break;
-            case 'draw' : 
-            broadcastConnection(ws, msg);
+            case 'DRAW' : 
+            // broadcastConnection(ws, msg);
+            connectionHandler(ws, msg);
             break;
+            default : 
+            console.log('Тип соединения не установлен');
         }
     });
 });
@@ -52,10 +56,14 @@ const connectionHandler = (ws, msg) => {
 
 const broadcastConnection = (ws, msg) => {
     aWss.clients.forEach(client => {
-        if(client.sessionId === msg.sessionId && client.userId !== msg.userId) {
+        // console.log(client.sessionId, client.userId);
+        // console.log(msg);
+        if(client.sessionId === msg.sessionId && client.userId !== msg.userId ) {
            //client.send(`Пользователь ${msg.username} подключился`); 
+        //    console.log(msg);
            client.send(JSON.stringify(msg)); 
-        }
+           
+         }
     });
 }
 

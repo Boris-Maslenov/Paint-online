@@ -9,10 +9,10 @@ const TOOLS_MAP = {
 }
 
 export class toolsFactory {
-    static init(params){
+    static init(params, canvas){
         try {
-            const {type} = params; 
-            TOOLS_MAP[type].draw(params);
+            const {tool} = params; 
+            TOOLS_MAP[tool].draw(params, canvas);
         } catch(e) {
             console.log('Инструмент не найден', e);
         }

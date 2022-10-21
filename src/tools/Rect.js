@@ -1,5 +1,7 @@
 export class Rect {
-    static draw({ctx, figure, saved, canvas}) {
+    static draw({figure, saved}, canvas) {
+        const ctx = canvas.getContext('2d');
+        if(figure.type === 'FINISH') ctx.beginPath();
         ctx.strokeStyle = figure.color;
         ctx.fillStyle = figure.color;
         ctx.lineWidth = figure.width;

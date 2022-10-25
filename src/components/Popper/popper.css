@@ -1,0 +1,64 @@
+.popper {
+    display: block;
+    cursor: default;
+    position: absolute;
+    left:0;
+    bottom:-100%;
+    width: 300px;
+    z-index: 11;
+    background: #F8F8F8;
+    border: 1px solid #D3DAE4;
+    box-shadow: 0px 5px 8px -2px rgba(189, 189, 189, 0.54);
+    border-radius: 2px;
+    transform: translate(-50%, 100%);
+    padding: 12px 24px 10px 24px;
+}
+
+.popper__exit {
+    position: absolute;
+    cursor: pointer;
+    top: 6px;
+    right: 6px;
+    width: 15px;
+    height: 15px;
+    background: url(../../../public/exit.svg) no-repeat center;
+    background-size: auto;
+    border:none;
+}
+
+
+.popper__title {
+    font-size: 14px;
+    font-weight: 600;
+    color: #1D4C89;
+}
+
+.popper__columns {
+    padding-top: 7px;
+    display: flex;
+    gap:10px;
+    align-items: center;
+}
+
+.popper__slider-wrap {
+    flex: 1 0 150px;
+}
+
+.popper__input-wrap{
+    width: 60px;
+}
+
+.popper__input{
+    display: block;
+    width: 100%;
+    font-family: 'Open Sans';
+    font-style: normal;
+    font-weight: 600;
+    font-size: 16px;
+    line-height: 22px;
+    color: #535D6A;
+    border: 1px solid #9AAABD;
+    border-radius: 2px;
+    text-align: center;
+    padding: 5px 0 5px 0;
+}

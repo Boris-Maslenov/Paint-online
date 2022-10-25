@@ -4,6 +4,7 @@ import AppHeader from './components/AppHeader/AppHeader';
 import Footer from './components/Footer/Footer';
 import Button from './components/Button/Button';
 
+
 function App() {
   // console.log('App');
   return (
@@ -15,10 +16,9 @@ function App() {
           </div>
       </div>
           <div className="add-friends">
-            <Button />
+                <Button />                 
           </div>
             <Footer />
-
     </div>
   );
 }

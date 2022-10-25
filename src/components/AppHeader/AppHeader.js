@@ -9,7 +9,7 @@ const AppHeader = () => {
                 <div className="app-header__line">
                     <ToolBar />
                 </div>
-                {/* <div className="app-header__line">
+               {/* <div className="app-header__line">
                     <SettingBar />
                 </div> */}
             </div>

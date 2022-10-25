@@ -1,11 +1,23 @@
+import { useEffect, useState, useCallback } from 'react';
+import Popper from '../Popper/Popper';
 import { useDispatch, useSelector } from 'react-redux';
 import { setTool, setColor, pushToRedo, pushToUndo } from '../../actions';
+import {Tooltip, Slider} from '@mui/material';
 import './toolbar.css';
 
 const ToolBar = () => {
-    const { canvas, undoList, redoList, sessionId } = useSelector(state => state);
-    const dispatch = useDispatch();
 
+        const { canvas, undoList, redoList, sessionId } = useSelector(state => state);
+        const dispatch = useDispatch();
+
+        const [open, setOpen] = useState(false);
+
+        const openHandler = (e, status) => {
+            e.stopPropagation();
+            setOpen(status);
+        }
+
+        
 
     const onUndoHandler = (e) => {
         e.preventDefault();
@@ -55,18 +67,46 @@ const ToolBar = () => {
 
     return (
         <div className="toolbar">
-            {/* <div className="toolbar__inner"> */}
-                <button onClick={e => dispatch( setTool('BRUSH') )} className={`toolbar__button toolbar__button_brush`}></button>
-                <button onClick={e => dispatch( setTool('RECT') )} className="toolbar__button toolbar__button_rect toolbar__button_dropdown"></button>
-                <button onClick={e => dispatch( setTool('CIRCLE') )} className="toolbar__button toolbar__button_circle toolbar__button_border"></button>
-                <button onClick={e => dispatch( setTool('ELASER') )} className="toolbar__button toolbar__button_elaser"></button>
-                <button onClick={e => dispatch( setTool('LINE') )} className="toolbar__button toolbar__button_line toolbar__button_border"></button>
-                <input onChange={e => dispatch( setColor(e.target.value) )} type="color" className="toolbar__button toolbar__button_colors toolbar__button_border"/>
 
+            <Tooltip title="Кисть" arrow>
+                <button onClick={e => dispatch( setTool('BRUSH') )} className={`toolbar__button toolbar__button_brush`}></button>
+            </Tooltip>
+            <Tooltip title="Прямоугольник" arrow>
+                <button onClick={e => dispatch( setTool('RECT') )} className="toolbar__button toolbar__button_rect"></button>
+            </Tooltip>
+            <Tooltip title="Окружность">
+                <button onClick={e => dispatch( setTool('CIRCLE') )} className="toolbar__button toolbar__button_circle toolbar__button_border"></button>
+            </Tooltip>
+            <Tooltip title="Ластик">
+                <button onClick={e => dispatch( setTool('ELASER') )} className="toolbar__button toolbar__button_elaser"></button>
+            </Tooltip>
+            <Tooltip title="Прямая линия">
+                <button onClick={e => dispatch( setTool('LINE') )} className="toolbar__button toolbar__button_line toolbar__button_border"></button>
+            </Tooltip>
+            
+            <div className="toolbar__button toolbar__button_dropdown">
+                <Tooltip title="Толщна кисти" arrow>
+                    <div className="dropdown" onClick={e => openHandler(e, true)}>          
+                    </div>
+                </Tooltip>
+                    {open ? <Popper fn={openHandler} /> : null}
+            </div>
+
+                
+          
+            <Tooltip title="Цвет">
+                <input onChange={e => dispatch( setColor(e.target.value) )} type="color" className="toolbar__button toolbar__button_colors toolbar__button_border"/>
+            </Tooltip>
+            <Tooltip title="Отменить">
                 <button onClick={e => onUndoHandler(e)} className="toolbar__button toolbar__button_undo toolbar__button_border" style={{'marginLeft' : 'auto'}}></button>
+            </Tooltip>
+            <Tooltip title="Повторить">
                 <button onClick={e => onRedoHandler(e)} className="toolbar__button toolbar__button_redo"></button>
+            </Tooltip>
+            <Tooltip title="Сохранить">
                 <button onClick={e => onSaveHandler(e)} className="toolbar__button toolbar__button_save toolbar__button_border"></button>
-            {/* </div> */}
+            </Tooltip>
+
         </div>
     )
 }

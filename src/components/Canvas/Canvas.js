@@ -10,11 +10,11 @@ import { WebSocketReceiver } from '../../services/websocket/webSocketReceiver';
 import './Canvas.css';
 
 const Canvas = () => {
-    console.log('Рендер Canvas...');
+    // console.log('Рендер Canvas...');
     const req = new FetcRequest();
     const [ open, setOpen ] = useState(true);
     const canvasRef = useRef();
-    const usernameRef =  useRef();
+    const usernameRef = useRef();
     const dispatch = useDispatch();
     const { tool, color, width, userId, canvas, sessionId, socket } = useSelector(state=>state);
    
@@ -26,10 +26,16 @@ const Canvas = () => {
     useEffect( () => {
         if(userId){
             canvasHandler(canvas);
-            getCanvasState();
         }
          // eslint-disable-next-line
     },[userId, tool, color, width] );
+    
+    useEffect( () => {
+        if(sessionId){
+            getCanvasState();
+        }
+         // eslint-disable-next-line
+    },[sessionId] );
 
 
 const getCanvasState = () => {

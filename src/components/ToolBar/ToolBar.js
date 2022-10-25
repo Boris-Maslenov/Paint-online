@@ -55,16 +55,18 @@ const ToolBar = () => {
 
     return (
         <div className="toolbar">
-            <button onClick={e => dispatch( setTool('BRUSH') )} className={`toolbar__button toolbar__button_brush`}></button>
-            <button onClick={e => dispatch( setTool('RECT') )} className="toolbar__button toolbar__button_rect"></button>
-            <button onClick={e => dispatch( setTool('CIRCLE') )} className="toolbar__button toolbar__button_circle"></button>
-            <button onClick={e => dispatch( setTool('ELASER') )} className="toolbar__button toolbar__button_elaser"></button>
-            <button onClick={e => dispatch( setTool('LINE') )} className="toolbar__button toolbar__button_line"></button>
-            <input onChange={e => dispatch( setColor(e.target.value) )} type="color" className="toolbar__button toolbar__button_colors"/>
+            {/* <div className="toolbar__inner"> */}
+                <button onClick={e => dispatch( setTool('BRUSH') )} className={`toolbar__button toolbar__button_brush`}></button>
+                <button onClick={e => dispatch( setTool('RECT') )} className="toolbar__button toolbar__button_rect toolbar__button_dropdown"></button>
+                <button onClick={e => dispatch( setTool('CIRCLE') )} className="toolbar__button toolbar__button_circle toolbar__button_border"></button>
+                <button onClick={e => dispatch( setTool('ELASER') )} className="toolbar__button toolbar__button_elaser"></button>
+                <button onClick={e => dispatch( setTool('LINE') )} className="toolbar__button toolbar__button_line toolbar__button_border"></button>
+                <input onChange={e => dispatch( setColor(e.target.value) )} type="color" className="toolbar__button toolbar__button_colors toolbar__button_border"/>
 
-            <button onClick={e => onUndoHandler(e)} className="toolbar__button toolbar__button_undo" style={{'marginLeft' : 'auto'}}></button>
-            <button onClick={e => onRedoHandler(e)} className="toolbar__button toolbar__button_redo"></button>
-            <button onClick={e => onSaveHandler(e)} className="toolbar__button toolbar__button_save"></button>
+                <button onClick={e => onUndoHandler(e)} className="toolbar__button toolbar__button_undo toolbar__button_border" style={{'marginLeft' : 'auto'}}></button>
+                <button onClick={e => onRedoHandler(e)} className="toolbar__button toolbar__button_redo"></button>
+                <button onClick={e => onSaveHandler(e)} className="toolbar__button toolbar__button_save toolbar__button_border"></button>
+            {/* </div> */}
         </div>
     )
 }

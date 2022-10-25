@@ -1,7 +1,55 @@
 .canvas {
     display: block;
     margin: 0 auto;
-    border: 1px solid #111;
+    border: 1px solid #B4BBC5;
     margin-top: 100px;
     background-color: #fff;
+}
+
+
+.wrap-input{
+    margin-top: 15px;
+    display: flex;
+    justify-content: space-between;
+    gap: 10px
+}
+
+.modal-title{
+    margin-bottom: 20px;
+}
+
+.modal-input {
+    background-color: #fff;
+    font-size: 14px;
+    font-weight: 400;
+    font-family: 'Open Sans', sans-serif;
+    line-height: 19px;
+    color:#B5B5B5;
+    display: block;
+    padding: 10px 0 10px 10px;
+    border: 1px solid #9AAABD;
+    border-radius: 2px;
+
+    flex: 1 0 0;
+}
+
+.modal-input::placeholder{
+    background-color: #fff;
+    font-size: 14px;
+    font-weight: 400;
+    font-family: 'Open Sans', sans-serif;
+    line-height: 19px;
+    color:#B5B5B5;
+}
+
+.modal-button {
+    font-size: 14px;
+    font-weight: 600;
+    color:#fff;
+    font-family: 'Open Sans', sans-serif;
+    background: #7A899C;
+    border: 1px solid #9AAABD;
+    border-radius: 2px;
+    padding: 10px 20px;
+    flex: 0 0 auto;
 }

@@ -171,9 +171,12 @@ const canvasHandler = (canvas) => {
         <>
             <canvas ref={canvasRef} width={700} height={500} className='canvas'></canvas>
                 <Modal open={open} setOpen={setOpen}>
-                    <h4>Нужно представиться</h4>
-                    <input ref={usernameRef} type="text" placeholder="Борис" />
-                    <button onClick={e=> authorizationHandler(usernameRef.current.value)}  type="button">Войти</button>
+                    <h4 className='modal-title'>Приветствую Вас на платформе "***"</h4>
+                    <span>Чтобы продолжить, Вам нужно представиться:</span>
+                    <div className="wrap-input">
+                        <input className='modal-input' ref={usernameRef} type="text" placeholder="Введите ваше имя" />
+                        <button className='modal-button' onClick={e=> authorizationHandler(usernameRef.current.value)}  type="button">Войти</button>
+                    </div>
                 </Modal>
         </>
     )

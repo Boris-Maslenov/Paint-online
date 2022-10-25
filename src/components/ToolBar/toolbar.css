@@ -1,48 +1,36 @@
 .toolbar{
     width: 100%;
     display: flex;
-    gap: 1%;
+    gap: 12px;  
+}
+
+.toolbar__button_border {
+    margin-left: 12px;
+}
+
+.toolbar__button_border:after{
+    content: '';
+    position: absolute;
+    width: 1px;
+    height: 31px;
+    display: block;
+    top: 50%;
+    left: -13px;
+    background-color: #A3ACB7;
+    transform: translate(0, -50%);
 }
 
 .toolbar__button {
     display: block;
     width: 25px;
     height: 25px;
+    background: #FFFFFF;
+    border: 1px solid #9AAABD;
+    border-radius: 2px;
     position: relative;
     cursor: pointer;
+    transition: all .3s;
 }
-
-
-
-.toolbar__button_brush:before {
-    background: url(../../../public/brush.svg) no-repeat;
-}
-.toolbar__button_rect:before {
-    background: url(../../../public/rect.svg) no-repeat;
-}
-.toolbar__button_circle:before{
-    background: url(../../../public/circle.svg) no-repeat;
-}
-.toolbar__button_elaser:before{
-    background: url(../../../public/eraser.svg) no-repeat;
-}
-.toolbar__button_line:before{
-    background: url(../../../public/line.svg) no-repeat;
-}
-.toolbar__button_colors:before{
-    background: url(../../../public/colors.png) no-repeat;
-}
-
-.toolbar__button_undo:before{
-    background: url(../../../public/undo.svg) no-repeat;
-}
-.toolbar__button_redo:before{
-    background: url(../../../public/redo.svg) no-repeat;
-}
-.toolbar__button_save:before{
-    background: url(../../../public/save.svg) no-repeat;
-}
-
 
 .toolbar__button:before {
     display: block;
@@ -54,5 +42,59 @@
     left: 50%;
     transform: translate(-50%, -50%);
     background-position: center center;
+    background-repeat: no-repeat;
+    /* background-size: auto; */
+    background-size: 20px;
+}
+
+.toolbar__button:hover{
+    border-color: rgba(1, 85, 193, 1);
+    }
+    
+
+.toolbar__button_brush:before {
+    background-image: url('../../../public/brush.svg');  
+}
+
+.toolbar__button_rect:before {
+    background-image: url('../../../public/rect.svg');
+ 
+}
+.toolbar__button_circle:before{
+    background-image: url('../../../public/circle.svg');
+}
+
+.toolbar__button_elaser:before{
+    background-image: url('../../../public/elaser.svg');
+}
+
+.toolbar__button_line:before{
+    background-image: url('../../../public/line.svg');
+}
+
+.toolbar__button_colors:before{
+    background-image: url('../../../public/color.svg');
+}
+
+.toolbar__button_undo:before{
+    background-image: url('../../../public/undo.svg');
+}
+.toolbar__button_redo:before{
+    background-image: url('../../../public/redo.svg');
+}
+.toolbar__button_save:before{
+    background-image: url('../../../public/save.svg');
+    background-size: 18px;
+}
+
+.toolbar__button_dropdown:after{
+    display: block;
+    position: absolute;
+    content: '';
+    width: 12px;
+    height: 7px;
+    bottom: -9px;
+    left: calc(50% - 6px);
+    background: url('../../../public/dropdown.svg') no-repeat;
     background-size: 100%;
 }

@@ -17,5 +17,9 @@ export const sliderStyles = {
                     transform: 'translate(-50%, -50%)',
                     boxShadow: 'none',
                 }
+        },
+        '& .MuiSlider-valueLabelLabel' : {
+            fontFamily: 'Open Sans, sans-serif',
+            fontWeight: '600',
         }
 }

@@ -5,7 +5,6 @@
     background-color: #fff;
 }
 
-
 .wrap-input{
     margin-top: 15px;
     display: flex;
@@ -28,7 +27,6 @@
     padding: 10px 0 10px 10px;
     border: 1px solid #9AAABD;
     border-radius: 2px;
-
     flex: 1 0 0;
 }
 

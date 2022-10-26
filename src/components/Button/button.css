@@ -1,3 +1,7 @@
+:root {
+    --main-color: #1D4C89;
+    --main-color-hover: #5e86bb;
+}
 .btn {
     position: relative;
     display: inline-block;
@@ -8,6 +12,7 @@
     padding: 12px 16px;
     border-radius: 33px;
     cursor: pointer;
+    transition: all 0.5;
 }
 
 .btn > * {
@@ -16,8 +21,18 @@
 }
 
 .btn__color_main {
-    background-color: #1D4C89;
-    border: 1px solid #1D4C89;
+    background-color: var(--main-color);
+    border: 1px solid var(--main-color);
+}
+
+.btn__color_main:hover {
+    background-color: var(--main-color-hover);
+    border: 1px solid var(--main-color-hover);
+}
+
+.btn__color_main:active {
+    background-color: var(--main-color);
+    border: 1px solid var(--main-color); 
 }
 
 .btn__icon{

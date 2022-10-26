@@ -1,12 +1,15 @@
 import './button.css';
 import {CopyToClipboard} from 'react-copy-to-clipboard';
+import { useState } from 'react';
 
 
 const Button = () => {
+    const [text, setText] = useState('Пригласить друга');
+
     return (
-        <CopyToClipboard text={window.location.href} onCopy={() => console.log('скопировано')} >
+        <CopyToClipboard text={window.location.href} onCopy={() => setText('Ссылка скопирована !')} >
             <button className="btn btn__color_main" type="button">
-                <span className="btn__icon btn__icon_add">Пригласить друга</span>
+                <span className="btn__icon btn__icon_add">{text}</span>
             </button>
         </CopyToClipboard>
     )

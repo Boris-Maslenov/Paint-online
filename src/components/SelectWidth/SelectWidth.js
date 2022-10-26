@@ -12,7 +12,7 @@ const SelectWidth = ({open, fn}) => {
     const width = useSelector(state=>+state.width);
 
     return (
-        <Popper open={open} fn={fn}>
+        <Popper open={open} fn={fn} title={'Размер кисти'}>
             <div className="popper__columns">
                 <div className='popper__slider-wrap'>
                     <WidthSlider value={width} onChange={e => dispatch(setWidth(e.target.value))} min={1} max={50} aria-label="Default" valueLabelDisplay="auto" />

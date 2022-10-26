@@ -51,6 +51,11 @@
     border-color: rgba(1, 85, 193, 1);
     }
     
+.toolbar__button:active{
+    transition: all 0.1s;
+    border-color: red;
+    }
+    
 
 .toolbar__button_brush:before {
     background-image: url('../../../public/brush.svg');  

@@ -1,3 +1,4 @@
+import './Canvas.css';
 import { useEffect, useRef, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { createCanvas, pushToUndo, setUserName, setSessionId, setUserId, setSocket } from '../../actions';
@@ -6,18 +7,18 @@ import FetcRequest from '../../services/FetcRequest';
 import { toolsFactory } from '../../services/toolsFactory';
 import { WebSocketTransmitter } from '../../services/websocket/WebSocketTransmitter';
 import { WebSocketReceiver } from '../../services/websocket/webSocketReceiver';
-
-import './Canvas.css';
+import { useSnackbar } from 'notistack';
 
 const Canvas = () => {
-    // console.log('Рендер Canvas...');
     const req = new FetcRequest();
     const [ open, setOpen ] = useState(true);
     const canvasRef = useRef();
     const usernameRef = useRef();
     const dispatch = useDispatch();
     const { tool, color, width, userId, canvas, sessionId, socket } = useSelector(state=>state);
-   
+
+    const { enqueueSnackbar } = useSnackbar();
+
     useEffect( () => {
         dispatch( createCanvas(canvasRef.current) );
          // eslint-disable-next-line
@@ -160,7 +161,7 @@ const canvasHandler = (canvas) => {
             let msg = JSON.parse(e.data);
             switch(msg.method) {
                 case 'CONNECTION' :
-                console.log(`Пользователь ${msg.userName} подключился`);
+                enqueueSnackbar(`Пользователь ${msg.userName} подключился`, {variant : 'info', anchorOrigin: { horizontal: 'right', vertical: 'top' }});
                     break;
                 case 'DRAW' :
                     drawHandler(msg);
@@ -175,6 +176,12 @@ const canvasHandler = (canvas) => {
 
     return (
         <>
+        {/* <Snackbar
+        open={openSnackbar}
+        autoHideDuration={6000}
+        onClose={handleCloseSnackbar}
+        message={messageSnackbar}
+      /> */}
             <canvas ref={canvasRef} width={700} height={500} className='canvas'></canvas>
                 <Modal open={open} setOpen={setOpen}>
                     <h4 className='modal-title'>Приветствую Вас на платформе "***"</h4>

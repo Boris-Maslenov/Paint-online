@@ -1,35 +1,38 @@
-export const setTool = (tool) => {
+export const setTool = (payload) => {
     return {
         type: 'SET_TOOL',
-        payload: tool
+        payload
     }
 }
-export const createCanvas = (ref) => {
+
+export const createCanvas = (payload) => {
     return {
         type: 'CREATE_CANVAS',
-        payload: ref
+        payload
     }
 }
 
-export const setColor = (color) => {
+export const setColor = (payload) => {
     return {
         type: 'SET_COLOR',
-        payload: color
+        payload
     }
 }
 
-export const setWidth = (width) => {
+export const setWidth = (payload) => {
     return {
         type: 'SET_WIDTH',
-        payload: width
+        payload
     }
 }
+
 export const pushToUndo = (payload) => {
     return {
         type: 'PUSH_UNDO_LIST',
         payload
     }
 }
+
 export const pushToRedo = (payload) => {
     return {
         type: 'PUSH_REDO_LIST',
@@ -57,6 +60,7 @@ export const setSessionId = (payload) => {
         payload
     }
 }
+
 export const setUserId = (payload) => {
     return {
         type: 'SET_USER_ID',

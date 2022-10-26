@@ -18,11 +18,13 @@ const reducer = (state = initialState, action) => {
             ...state,
             canvas: action.payload
         }
+
         case 'SET_TOOL' :
             return {
                 ...state,
                 tool: action.payload
             }
+
         case 'SET_COLOR' :
             return {
                 ...state,
@@ -34,6 +36,7 @@ const reducer = (state = initialState, action) => {
                 ...state,
                 width: action.payload,
             }
+
         case 'PUSH_UNDO_LIST' :
             return {
                 ...state,
@@ -57,11 +60,13 @@ const reducer = (state = initialState, action) => {
                 ...state,
                 socket: action.payload
             }
+
         case 'SET_SESSION_ID' :
             return {
                 ...state,
                 sessionId: action.payload
             }
+            
         case 'SET_USER_ID' :
             return {
                 ...state,

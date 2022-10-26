@@ -47,6 +47,6 @@ button {
 .add-friends {
     z-index: 1;
     position: absolute;
-    right: 10%;
+    right: 1%;
     bottom: 100px;
 }

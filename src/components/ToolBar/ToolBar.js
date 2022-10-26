@@ -1,8 +1,8 @@
 import { useEffect, useState, useCallback } from 'react';
-import Popper from '../Popper/Popper';
 import { useDispatch, useSelector } from 'react-redux';
 import { setTool, setColor, pushToRedo, pushToUndo } from '../../actions';
 import {Tooltip, Slider} from '@mui/material';
+import SelectWidth from '../SelectWidth/SelectWidth';
 import './toolbar.css';
 
 const ToolBar = () => {
@@ -89,11 +89,9 @@ const ToolBar = () => {
                     <div className="dropdown" onClick={e => openHandler(e, true)}>          
                     </div>
                 </Tooltip>
-                    {open ? <Popper fn={openHandler} /> : null}
+                   <SelectWidth open={open} fn={openHandler} />
             </div>
 
-                
-          
             <Tooltip title="Цвет">
                 <input onChange={e => dispatch( setColor(e.target.value) )} type="color" className="toolbar__button toolbar__button_colors toolbar__button_border"/>
             </Tooltip>

@@ -35,7 +35,7 @@ const Canvas = () => {
 
 
 const getCanvasState = () => {
-    req.request( `http://localhost:5000/image?id=${sessionId}` ) 
+    req.request( `https://paint-server-nodejs.herokuapp.com/image?id=${sessionId}` ) 
     .then(response => {
         const ctx = canvasRef.current.getContext('2d');
         const img = document.createElement('img');
@@ -83,7 +83,7 @@ const canvasHandler = (canvas) => {
         WebSocketTransmitter.transmit(socket, {...params,  userId, sessionId} );
 
         const payload = JSON.stringify({'img': canvasRef.current.toDataURL()});
-        req.request( `http://localhost:5000/image?id=${sessionId}`, 'POST', payload)
+        req.request( `https://paint-server-nodejs.herokuapp.com/image?id=${sessionId}`, 'POST', payload)
             .then(response => console.log(response))
             .catch(e =>  console.log(e))
     }
@@ -137,7 +137,7 @@ const canvasHandler = (canvas) => {
     }
 
     const webSocketConnect = (data) => {
-        const socket = new WebSocket('ws://localhost:5000/'); 
+        const socket = new WebSocket('ws://paint-server-nodejs.herokuapp.com'); 
         socket.onopen = () => {
             socket.send(JSON.stringify({...data, method: 'CONNECTION'}));
         } 

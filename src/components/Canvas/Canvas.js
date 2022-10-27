@@ -1,8 +1,8 @@
 import './Canvas.css';
+import Modal from '../Modal/Modal';
 import { useEffect, useRef, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { createCanvas, pushToUndo, setUserName, setSessionId, setUserId, setSocket } from '../../actions';
-import Modal from '../Modal/Modal';
 import FetcRequest from '../../services/FetcRequest';
 import { toolsFactory } from '../../services/toolsFactory';
 import { WebSocketTransmitter } from '../../services/websocket/WebSocketTransmitter';
@@ -16,7 +16,6 @@ const Canvas = () => {
     const usernameRef = useRef();
     const dispatch = useDispatch();
     const { tool, color, width, userId, canvas, sessionId, socket } = useSelector(state=>state);
-
     const { enqueueSnackbar } = useSnackbar();
 
     useEffect( () => {
@@ -25,22 +24,17 @@ const Canvas = () => {
     },[] );
 
     useEffect( () => {
-        if(userId){
-            canvasHandler(canvas);
-        }
+        if(userId) canvasHandler(canvas);
          // eslint-disable-next-line
     },[userId, tool, color, width] );
     
     useEffect( () => {
-        if(sessionId){
-            getCanvasState();
-        }
+        if(sessionId) getCanvasState();
          // eslint-disable-next-line
     },[sessionId] );
 
 
 const getCanvasState = () => {
-
     req.request( `http://localhost:5000/image?id=${sessionId}` ) 
     .then(response => {
         const ctx = canvasRef.current.getContext('2d');
@@ -55,29 +49,23 @@ const getCanvasState = () => {
 
 }
 
-
 const canvasHandler = (canvas) => {
     const ctx = canvas.getContext('2d');
     let mouseDown = false;
-
     canvas.onmousemove = mouseMoveHandler;
     canvas.onmousedown = mouseDownHandler;
     canvas.onmouseup = mouseUpHandler;
-
     let startX;
     let startY;
     let currentX;
     let currentY;
-
     let saved;
-
     function mouseDownHandler(e) {
         mouseDown = true;
         saved = canvas.toDataURL();
         ctx.beginPath();
         startX = e.pageX - e.target.offsetLeft;
         startY = e.pageY - e.target.offsetTop;
-
         dispatch(pushToUndo( canvasRef.current.toDataURL() ));
     }
 
@@ -125,17 +113,14 @@ const canvasHandler = (canvas) => {
 }
 
     const userAuthorization = (userName) => {
-
             const data = {
                 sessionId: window.location.pathname.replace('/', ''),
                 userId: `u${Date.now().toString(8)}`,
                 userName,
             }
-
             dispatch(setUserName(userName));
             dispatch(setSessionId(data.sessionId));
             dispatch(setUserId(data.userId));
-
             webSocketConnect(data);
 
     }
@@ -176,21 +161,15 @@ const canvasHandler = (canvas) => {
 
     return (
         <>
-        {/* <Snackbar
-        open={openSnackbar}
-        autoHideDuration={6000}
-        onClose={handleCloseSnackbar}
-        message={messageSnackbar}
-      /> */}
             <canvas ref={canvasRef} width={700} height={500} className='canvas'></canvas>
-                <Modal open={open} setOpen={setOpen}>
-                    <h4 className='modal-title'>Приветствую Вас на платформе "***"</h4>
-                    <span>Чтобы продолжить, Вам нужно представиться:</span>
-                    <div className="wrap-input">
-                        <input className='modal-input' ref={usernameRef} type="text" placeholder="Введите ваше имя" />
-                        <button className='modal-button' onClick={e=> authorizationHandler(usernameRef.current.value)}  type="button">Войти</button>
-                    </div>
-                </Modal>
+            <Modal open={open} setOpen={setOpen}>
+                <h4 className='modal-title'>Приветствую Вас на платформе "***"</h4>
+                <span>Чтобы продолжить, Вам нужно представиться:</span>
+                <div className="wrap-input">
+                    <input className='modal-input' ref={usernameRef} type="text" placeholder="Введите ваше имя" />
+                    <button className='modal-button' onClick={e=> authorizationHandler(usernameRef.current.value)}  type="button">Войти</button>
+                </div>
+            </Modal>
         </>
     )
 

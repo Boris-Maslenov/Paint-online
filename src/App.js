@@ -18,10 +18,10 @@ function App() {
             </SnackbarProvider>
           </div>
       </div>
-          <div className="add-friends">
-                <Button />                 
-          </div>
-            <Footer />
+      <div className="add-friends">
+            <Button />                 
+      </div>
+        <Footer />
     </div>
   );
 }

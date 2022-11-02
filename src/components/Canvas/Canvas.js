@@ -12,11 +12,14 @@ import { useSnackbar } from 'notistack';
 const Canvas = () => {
     const req = new FetcRequest();
     const [ open, setOpen ] = useState(true);
+    const [draw, setDraw] = useState(true);
     const canvasRef = useRef();
     const usernameRef = useRef();
     const dispatch = useDispatch();
     const { tool, color, width, userId, canvas, sessionId, socket } = useSelector(state=>state);
     const { enqueueSnackbar } = useSnackbar();
+
+    console.log(draw);
 
     useEffect( () => {
         dispatch( createCanvas(canvasRef.current) );

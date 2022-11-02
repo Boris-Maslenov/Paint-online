@@ -1,13 +1,12 @@
 import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { setTool, setColor, pushToRedo, pushToUndo } from '../../actions';
-import { Tooltip } from '@mui/material';
+import { Tooltip, Box } from '@mui/material';
 import SelectWidth from '../SelectWidth/SelectWidth';
 import './toolbar.css';
 
 const ToolBar = () => {
-
-    const { canvas, undoList, redoList, sessionId } = useSelector(state => state);
+    const { canvas, undoList, redoList, sessionId, tool } = useSelector(state => state);
     const dispatch = useDispatch();
     const [open, setOpen] = useState(false);
     const openHandler = (e, status) => {
@@ -58,26 +57,38 @@ const ToolBar = () => {
         document.body.removeChild(a);
     }
 
+    const element = '& #' + tool.toLowerCase();
+    const materialStyle = {
+                            width: '100%',
+                                [element] : {
+                                    border: '1px solid red'
+                                }
+            }
+
     return (
-        <div className="toolbar">
-            <Tooltip title="Кисть" arrow>
-                <button onClick={e => dispatch( setTool('BRUSH') )} className={`toolbar__button toolbar__button_brush`}></button>
+        <Box sx={materialStyle} > 
+        <div className="toolbar" >
+                 
+            <Tooltip title="Кисть" arrow >
+                        <button id="brush" onClick={e => dispatch( setTool('BRUSH') )} className={`toolbar__button toolbar__button_brush`}></button>
             </Tooltip>
+             
             <Tooltip title="Прямоугольник" arrow>
-                <button onClick={e => dispatch( setTool('RECT') )} className="toolbar__button toolbar__button_rect"></button>
+                <button id="rect" onClick={e => dispatch( setTool('RECT') )} className="toolbar__button toolbar__button_rect"></button>
             </Tooltip>
+            
             <Tooltip title="Окружность">
-                <button onClick={e => dispatch( setTool('CIRCLE') )} className="toolbar__button toolbar__button_circle toolbar__button_border"></button>
+                <button id="circle" onClick={e => dispatch( setTool('CIRCLE') )} className="toolbar__button toolbar__button_circle toolbar__button_border"></button>
             </Tooltip>
             <Tooltip title="Ластик">
-                <button onClick={e => dispatch( setTool('ELASER') )} className="toolbar__button toolbar__button_elaser"></button>
+                <button id="elaser" onClick={e => dispatch( setTool('ELASER') )} className="toolbar__button toolbar__button_elaser"></button>
             </Tooltip>
             <Tooltip title="Прямая линия">
-                <button onClick={e => dispatch( setTool('LINE') )} className="toolbar__button toolbar__button_line toolbar__button_border"></button>
+                <button id="line" onClick={e => dispatch( setTool('LINE') )} className="toolbar__button toolbar__button_line toolbar__button_border"></button>
             </Tooltip>
-            <div className="toolbar__button toolbar__button_dropdown">
-                <Tooltip title="Толщна кисти" arrow>
-                    <div className="dropdown" onClick={e => openHandler(e, true)}>          
+            <div className="toolbar__button toolbar__button_width toolbar__button_dropdown">
+                <Tooltip title="Толщина кисти" arrow>
+                    <div id="width" className="dropdown" onClick={e => openHandler(e, true)}>          
                     </div>
                 </Tooltip>
                 <SelectWidth open={open} fn={openHandler} />
@@ -85,6 +96,7 @@ const ToolBar = () => {
             <Tooltip title="Цвет">
                 <input onChange={e => dispatch( setColor(e.target.value) )} type="color" className="toolbar__button toolbar__button_colors toolbar__button_border"/>
             </Tooltip>
+            
             <Tooltip title="Отменить">
                 <button onClick={e => onUndoHandler(e)} className="toolbar__button toolbar__button_undo toolbar__button_border" style={{'marginLeft' : 'auto'}}></button>
             </Tooltip>
@@ -95,6 +107,8 @@ const ToolBar = () => {
                 <button onClick={e => onSaveHandler(e)} className="toolbar__button toolbar__button_save toolbar__button_border"></button>
             </Tooltip>
         </div>
+        </Box>
+        
     )
 }
 

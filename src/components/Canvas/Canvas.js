@@ -10,16 +10,14 @@ import { WebSocketReceiver } from '../../services/websocket/webSocketReceiver';
 import { useSnackbar } from 'notistack';
 
 const Canvas = () => {
+
     const req = new FetcRequest();
     const [ open, setOpen ] = useState(true);
-    const [draw, setDraw] = useState(true);
     const canvasRef = useRef();
     const usernameRef = useRef();
     const dispatch = useDispatch();
     const { tool, color, width, userId, canvas, sessionId, socket } = useSelector(state=>state);
     const { enqueueSnackbar } = useSnackbar();
-
-    console.log(draw);
 
     useEffect( () => {
         dispatch( createCanvas(canvasRef.current) );
@@ -64,6 +62,7 @@ const canvasHandler = (canvas) => {
     let currentX;
     let currentY;
     let saved;
+
     function mouseDownHandler(e) {
         mouseDown = true;
         saved = canvas.toDataURL();
@@ -123,7 +122,6 @@ const canvasHandler = (canvas) => {
             dispatch(setSessionId(data.sessionId));
             dispatch(setUserId(data.userId));
             webSocketConnect(data);
-
     }
 
     const authorizationHandler = (userName) => {
@@ -156,19 +154,22 @@ const canvasHandler = (canvas) => {
         }
 
         dispatch(setSocket(socket));  
-
     }
 
     return (
         <>
-            <canvas ref={canvasRef} width={700} height={500} className='canvas'></canvas>
+            <canvas ref={canvasRef} width={700} height={500} className='canvas'><p>Ваш браузер не поддерживает рисование</p></canvas>
+
             <Modal open={open} setOpen={setOpen}>
-                <h4 className='modal-title'>Приветствую Вас на платформе "***"</h4>
+                <h4 className='modal-title'>Приветствую Вас на платформе "ОНЛАЙН РИСОВАНИЕ"</h4>
                 <span>Чтобы продолжить, Вам нужно представиться:</span>
                 <div className="wrap-input">
                     <input className='modal-input' ref={usernameRef} type="text" placeholder="Введите ваше имя" />
                     <button className='modal-button' onClick={e=> authorizationHandler(usernameRef.current.value)}  type="button">Войти</button>
                 </div>
+                <span style={{'color':'#515852', 'fontSize':'12px', 'marginTop':'10px', 'display':'block'}}>
+                    Введите свое имя, войдите в интерфейс, нажмите на кнопку пригласить друга, отправьте ему ссылку и рисуйте вместе!
+                </span>
             </Modal>
         </>
     )

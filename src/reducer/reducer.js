@@ -13,6 +13,7 @@ const initialState = {
 
 const reducer = (state = initialState, action) => {
     switch(action.type) {
+        
         case 'CREATE_CANVAS' :
         return {
             ...state,

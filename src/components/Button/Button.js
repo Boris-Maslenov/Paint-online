@@ -4,6 +4,7 @@ import { useState } from 'react';
 
 
 const Button = () => {
+    
     const [text, setText] = useState('Пригласить друга');
 
     return (

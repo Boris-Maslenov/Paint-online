@@ -6,7 +6,6 @@ export class Line {
         ctx.fillStyle = figure.color;
         ctx.strokeStyle = figure.color;
         ctx.lineWidth = figure.width;
-
         const img = new Image();
         img.src = saved;
         img.onload = () => {

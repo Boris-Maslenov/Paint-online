@@ -2,7 +2,6 @@ import './popper.css';
 
 const Popper = ({open, fn, title, children}) => {
 
-
     return open ? (
             <>
                 <div className="popper">

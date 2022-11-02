@@ -2,7 +2,7 @@ import './Canvas.css';
 import Modal from '../Modal/Modal';
 import { useEffect, useRef, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { createCanvas, pushToUndo, setUserName, setSessionId, setUserId, setSocket } from '../../actions';
+import { createCanvas, pushToUndo, setUserName, setSessionId, setUserId, setSocket, saveBackupCanvas } from '../../actions';
 import FetcRequest from '../../services/FetcRequest';
 import { toolsFactory } from '../../services/toolsFactory';
 import { WebSocketTransmitter } from '../../services/websocket/WebSocketTransmitter';
@@ -34,19 +34,20 @@ const Canvas = () => {
     },[sessionId] );
 
 
+const canvasUpdate = (response) => {
+    const ctx = canvasRef.current.getContext('2d');
+    const img = document.createElement('img');
+    img.src = response.data;
+    img.onload = () => {
+        ctx.clearRect(0, 0, canvasRef.current.width, canvasRef.current.height); 
+        ctx.drawImage(img, 0, 0, canvasRef.current.width, canvasRef.current.height);
+    }
+}
+
 const getCanvasState = () => {
     req.request( `http://localhost:5000/image?id=${sessionId}` ) 
-    .then(response => {
-        const ctx = canvasRef.current.getContext('2d');
-        const img = document.createElement('img');
-        img.src = response.data;
-        img.onload = () => {
-            ctx.clearRect(0, 0, canvasRef.current.width, canvasRef.current.height); 
-            ctx.drawImage(img, 0, 0, canvasRef.current.width, canvasRef.current.height);
-        }
-    })
+    .then( canvasUpdate )
     .catch(e =>  console.log(e));
-
 }
 
 const canvasHandler = (canvas) => {
@@ -81,11 +82,8 @@ const canvasHandler = (canvas) => {
         }
 
         WebSocketTransmitter.transmit(socket, {...params,  userId, sessionId} );
-
         const payload = JSON.stringify({'img': canvasRef.current.toDataURL()});
-        req.request( `http://localhost:5000/image?id=${sessionId}`, 'POST', payload)
-            .then(response => console.log(response))
-            .catch(e =>  console.log(e))
+        dispatch( saveBackupCanvas(req.request, `http://localhost:5000/image?id=${sessionId}`, payload)  );
     }
 
     function mouseMoveHandler(e) {

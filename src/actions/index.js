@@ -1,3 +1,9 @@
+export const saveBackupCanvas = (req, url, payload) => () => {
+    req( url , 'POST', payload)
+    .then(response => console.log(response))
+    .catch(e =>  console.log(e))
+}
+
 export const setTool = (payload) => {
     return {
         type: 'SET_TOOL',

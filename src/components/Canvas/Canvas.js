@@ -9,8 +9,8 @@ import { WebSocketTransmitter } from '../../services/websocket/WebSocketTransmit
 import { WebSocketReceiver } from '../../services/websocket/webSocketReceiver';
 import { useSnackbar } from 'notistack';
 
-const SURL = process.env.NODE_ENV == 'production' ? 'http://62.113.107.21:8080/' : 'http://localhost:5000/';
-const WSURL = process.env.NODE_ENV == 'production' ? 'ws://62.113.107.21:8080/' : 'ws://localhost:5000/';
+const SURL = process.env.NODE_ENV === 'production' ? 'http://62.113.107.21:8080/' : 'http://localhost:5000/';
+const WSURL = process.env.NODE_ENV === 'production' ? 'ws://62.113.107.21:8080/' : 'ws://localhost:5000/';
 
 const Canvas = () => {
 

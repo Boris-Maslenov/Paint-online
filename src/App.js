@@ -1,12 +1,17 @@
 import './App.css';
 import { SnackbarProvider } from 'notistack';
 import Canvas from './components/Canvas/Canvas';
+import Error from './components/Error/Error';
 import AppHeader from './components/AppHeader/AppHeader';
 import Footer from './components/Footer/Footer';
 import Button from './components/Button/Button';
 
+const screenWidth = document.documentElement.offsetWidth;
+
 
 function App() {
+
+  if(screenWidth < 768) return <Error />;
 
   return (
     <div className="App">

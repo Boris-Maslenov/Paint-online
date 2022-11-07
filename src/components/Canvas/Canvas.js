@@ -9,6 +9,9 @@ import { WebSocketTransmitter } from '../../services/websocket/WebSocketTransmit
 import { WebSocketReceiver } from '../../services/websocket/webSocketReceiver';
 import { useSnackbar } from 'notistack';
 
+const SURL = process.env.NODE_ENV == 'production' ? 'http://62.113.107.21:8080/' : 'http://localhost:5000/';
+const WSURL = process.env.NODE_ENV == 'production' ? 'ws://62.113.107.21:8080/' : 'ws://localhost:5000/';
+
 const Canvas = () => {
 
     const req = new FetcRequest();
@@ -46,7 +49,7 @@ const canvasUpdate = (response) => {
 }
 
 const getCanvasState = () => {
-    req.request( `http://localhost:5000/image?id=${sessionId}` ) 
+    req.request( `${SURL}image?id=${sessionId}` ) 
     .then( canvasUpdate )
     .catch(e =>  console.log(e));
 }
@@ -85,7 +88,7 @@ const canvasHandler = (canvas) => {
 
         WebSocketTransmitter.transmit(socket, {...params,  userId, sessionId} );
         const payload = JSON.stringify({'img': canvasRef.current.toDataURL()});
-        dispatch( saveBackupCanvas(req.request, `http://localhost:5000/image?id=${sessionId}`, payload)  );
+        dispatch( saveBackupCanvas(req.request, `${SURL}image?id=${sessionId}`, payload)  );
     }
 
     function mouseMoveHandler(e) {
@@ -136,7 +139,7 @@ const canvasHandler = (canvas) => {
     }
 
     const webSocketConnect = (data) => {
-        const socket = new WebSocket('ws://localhost:5000/'); 
+        const socket = new WebSocket(WSURL); 
         socket.onopen = () => {
             socket.send(JSON.stringify({...data, method: 'CONNECTION'}));
         } 
